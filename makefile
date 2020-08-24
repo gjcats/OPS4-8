@@ -1,6 +1,11 @@
 # a makefile for GNU Linux installations
 # Gerard Cats, 27 July 2020
 
+# This makefile was updated to include the required math77 routines into the main sources
+# and to switch to -DInputIsChars
+# gfortran is invoked with real*8 as default: -fdefault-real-8
+# Gerard Cats, 24 August 2020
+
 .SUFFIXES:
 
 OPS: OPS.exe
