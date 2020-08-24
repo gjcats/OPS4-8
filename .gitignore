@@ -1,0 +1,7 @@
+RCS
+*.o
+*.mod
+*.exe
+dependencies
+example1.*
+example2.*
