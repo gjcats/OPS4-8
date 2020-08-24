@@ -1,0 +1,48 @@
+*-----------------------directory layer---------------------------------*
+DATADIR        /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Data/
+*-----------------------identification layer----------------------------*
+PROJECT        OPS-testset
+RUNID          example1
+YEAR           2020
+*-----------------------substance layer---------------------------------*
+COMPCODE       4
+COMPNAME       HF (fluorine)- gas.
+MOLWEIGHT      20.0
+PHASE          1
+LOSS           1
+DDSPECTYPE     2
+DDPARVALUE     13
+WDSPECTYPE     3
+WDPARVALUE     1000000
+DIFFCOEFF      .230
+WASHOUT        0
+CONVRATE       .0000
+LDCONVRATE     .0000
+*-----------------------emission layer----------------------------------*
+EMFILE         /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/examples/example1.brn
+USDVEFILE
+USPSDFILE
+EMCORFAC       1.0
+TARGETGROUP    0
+COUNTRY        0
+*-----------------------receptor layer----------------------------------*
+RECEPTYPE      1
+XCENTER        128730
+YCENTER        432028
+NCOLS          15
+NROWS          15
+RESO           500
+OUTER
+RCPFILE
+*-----------------------meteo & surface char layer----------------------*
+ROUGHNESS      0.25
+Z0FILE
+LUFILE
+METEOTYPE      0
+MTFILE         /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Meteo/m005114c.*
+*-----------------------output layer------------------------------------*
+DEPUNIT        3
+PLTFILE        /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Output/OPS-testset/example1.plt
+PRNFILE        /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Output/OPS-testset/example1.lpt
+INCLUDE        1
+GUIMADE        1

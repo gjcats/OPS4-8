@@ -1,0 +1,63 @@
+Gerard Cats, 27 July 2020
+
+A makefile for CONF=CygWin was added
+The Perl script 'makedependencies.pl' is used to create 'dependencies' for the targets to be recreated
+Obviously, CygWin packages 'gfrortran', 'make' and 'perl' are prerequisites
+libMATH77.a was installed in /usr/local/lib; from http://www.netlib.org/math/math77.tgz
+gunzip -c math77.tgz | tar xvf -; gfortran *.f; ar cvf libMATH77.a *.o
+
+The following changes were made
+_____________________________________________________________________________________________________________
+m_utils.f90
+--------------
+ifdef GNU added to avoid USE IFPORT
+
+LREC is intent(IN)
+{This solved this runtime error
+	Error in subroutine: sysopen
+
+	Error: Could not open file for reading
+
+	Relevant parameters:
+  	Io-status = 5002
+  	File type = text
+  	Filename  = /OPS/Meteo/m095104c.001
+  	Filetype  = meteo file
+
+	Procedure 'sysopen' was called by:
+  	ops_readdata
+  	ops_statfil
+  	ops_readmeteo
+  	ops_main
+}
+
+_____________________________________________________________________________________________________________
+ops_main.f90
+--------------
+ifdef GNU added to avoid USE IFPORT
+_____________________________________________________________________________________________________________
+inum.f90 added
+--------------
+because IFPORT was not available
+_____________________________________________________________________________________________________________
+m_ops_building.f90
+--------------
+Apparently, gfortran requires all strings in an arrat to be equal length in a "data" assignment statement
+Hence buildingParamNames was padded with blanks, into CbuildingParamNames, and 2 subroutines
+where augmented with trimming, as per:
+
+character(len=200) :: buildingParamNames(mBparms)
+integer :: j
+    do j = 1, mBparms
+       buildingParamNames(j) = trim( CbuildingParamNames(j) )
+    enddo
+_____________________________________________________________________________________________________________
+m_ops_emis.f90
+--------------
+call ops_openlog replaced by ierr = ops_openlog because a variable cannot have the same name as a subroutine
+both ops_openlog and ierr declared LOGICAL
+_____________________________________________________________________________________________________________
+m_getkey.f90
+--------------
+LOGICAL first ! not integer
+INTEGER inum ! added
