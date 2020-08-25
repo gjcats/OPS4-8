@@ -1,7 +1,7 @@
 # a makefile for GNU Linux installations
 # Gerard Cats, 27 July 2020
 
-.SUFFIXES:
+.SUFFIXES: .f .o
 
 OPS: OPS.exe
 
@@ -12,7 +12,7 @@ ifeq ($(MAKECMDGOALS),debug)
    debug: OPS$(DB).exe
    OPT = -O0
 else
-   OPT = -O1
+   OPT = -O3
 endif
 
 # sources are separated into modules and others, but this distinction is not used further on
@@ -32,7 +32,9 @@ SOURCES := ops_bgcon.f90 ops_bgcon_tra.f90 ops_bron_rek.f90 ops_brondepl.f90 ops
            ops_surface.f90 ops_tra_char.f90 ops_vertdisp.f90 ops_virtdist.f90 ops_write_progress.f90 ops_wv_powerlaw.f90 \
            ops_wvprofile.f90 ops_z0corr.f90
 
-SOURCES := $(SOURCES) mess.f silup.f silupm.f amach.f  optchk.f  smess.f
+# math77 to be compiled with the same flags. math77 -> r1mach does not behave properly under double precision. I recoded it
+SOURCES  := $(SOURCES) r1mach.f90
+SOURCESmath77 = mess.f silup.f silupm.f optchk.f  smess.f
 
 
 # configurations
@@ -41,7 +43,13 @@ ifeq ($(MAKECONF),GNU_Linux)
    SOURCES := $(SOURCES) inum.f90		# no IFPORT library
    FC       = gfortran
    CPPFLAGS = -DUNIX -DGNU -DInputIsChars
-   FFLAGS   = $(OPT) -ffree-line-length-0 -finit-local-zero -fdefault-real-8 -cpp
+   FFLAGSb  = $(OPT) -ffree-line-length-0 -finit-local-zero -cpp
+#  FFLAGSb += -fdefault-real-8
+   FFLAGS   = $(FFLAGSb)
+
+# optimisation problems
+   ops_statparexp.o : FFLAGS = $(FFLAGSb:O3=O0)
+
 #  LDLIBS   = -lMATH77
    LDLIBS   = 
    LDFLAGS  = -L /usr/local/lib
@@ -56,19 +64,17 @@ else
    endif
 endif
 
+#_______________________________________________________________________________
+
 # generics
 # --------
-OBJECTS := $(MODULES:.f90=.o) $(SOURCES:.f90=.o)
+OBJECTS := $(MODULES:.f90=.o) $(SOURCES:.f90=.o) $(SOURCESmath77:.f=.o)
 
 OPS$(DB).exe: $(OBJECTS)
 	$(FC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
 
 %.o %.mod: %.f90
 	$(FC) $(CPPFLAGS) $(FFLAGS) -c $<
-ifeq ($(MAKECONF),GNU_Linux)
-ops_reken.o: ops_reken.f90
-	$(FC) $(CPPFLAGS) $(FFLAGS:O2=O1) -c $<
-endif
 
 # dependencies list is created from sources
 # ------------

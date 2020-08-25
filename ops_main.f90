@@ -351,7 +351,7 @@ error%haserror = .FALSE.   ! no error detected yet
 ! Read program arguments and determine the name of the control file, which may be derived from the current working directory.
 ! As a first parameter the diag flag is returned.
 !
-print *, "mach 4 = ", r1mach(4)
+print *, "mach 3 = ", r1mach(3), "; mach 4 = ", r1mach(4)
 CALL ops_get_arg (diag, subbron, domlu, varz, perc, error)
 IF (error%haserror) GOTO 1000 ! GOTO error handling at end of program
 IF (diag == 1 .OR. diag == 3) THEN

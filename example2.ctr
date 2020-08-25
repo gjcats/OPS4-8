@@ -37,7 +37,7 @@ RCPFILE        /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/examples
 *-----------------------meteo & surface char layer----------------------*
 ROUGHNESS      0.0
 Z0FILE         /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Data/z0_jr_250_lgn7.asc
-LUFILE         /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Data/lu_250_lgn7.ops
+LUFILE         /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Data/lu_250_lgn7.asc
 METEOTYPE      0
 MTFILE         /cygdrive/d/Gebruikers/Apollo/Documents/Luis/Geetacs/OPS/Meteo/m005114c.*
 *-----------------------output layer------------------------------------*
