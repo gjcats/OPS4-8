@@ -1,6 +1,11 @@
 RCS
+<<<<<<< HEAD
 *.mod
 *.o
+=======
+*.o
+*.mod
+>>>>>>> 53adfbf2b73800d645533cbb4af7cd40d7164b94
 *.exe
 dependencies
 example1.*
