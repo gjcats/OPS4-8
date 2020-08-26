@@ -41,10 +41,11 @@ IMPLICIT NONE
 !
 ! CONSTANTS - File names
 !
-CHARACTER*12, PARAMETER                          :: BASEMASK     = 'basemask.ops' ! base mask for The Netherlands (500mx500m)
 #ifdef InputIsChars
+CHARACTER*12, PARAMETER                          :: BASEMASK     = 'basemask.asc' ! base mask for The Netherlands (500mx500m)
 CHARACTER*12, PARAMETER                          :: Z0EURFILE    = 'z0eur.asc'    ! standard file for z0 in Europe
 #else
+CHARACTER*12, PARAMETER                          :: BASEMASK     = 'basemask.ops' ! base mask for The Netherlands (500mx500m)
 CHARACTER*12, PARAMETER                          :: Z0EURFILE    = 'z0eur.ops'    ! standard file for z0 in Europe
 #endif
 CHARACTER*12, PARAMETER                          :: DVFILE       = 'dvepre.ops'   ! standard file for diurnal variations 
@@ -113,9 +114,15 @@ CHARACTER*24                                     :: map_so2(5)                 !
 CHARACTER*24                                     :: map_nox(5)                 ! name of file with background map NOx (for 4 years)
 CHARACTER*24                                     :: map_nh3(5)                 ! name of file with background map NH3 (for 4 years)
 
+#ifdef InputIsChars
+DATA map_so2  / 'bgso2c1984.asc', 'bgso2c1994.asc', 'bgso2c2005.asc', 'bgso2c2012.asc','bgso2c2020.asc' /
+DATA map_nox  / 'bgnoxc1984.asc', 'bgnoxc1994.asc', 'bgnoxc2005.asc', 'bgnoxc2012.asc','bgnoxc2020.asc' /
+DATA map_nh3  / 'bgnh3c1984.asc', 'bgnh3c1994.asc', 'bgnh3c2005.asc', 'bgnh3c2012.asc','bgnh3c2020.asc' /
+#else
 DATA map_so2  / 'bgso2c1984.ops', 'bgso2c1994.ops', 'bgso2c2005.ops', 'bgso2c2012.ops','bgso2c2020.ops' /
 DATA map_nox  / 'bgnoxc1984.ops', 'bgnoxc1994.ops', 'bgnoxc2005.ops', 'bgnoxc2012.ops','bgnoxc2020.ops' /
 DATA map_nh3  / 'bgnh3c1984.ops', 'bgnh3c1994.ops', 'bgnh3c2005.ops', 'bgnh3c2012.ops','bgnh3c2020.ops' /
+#endif
 !-------------------------------------------------------------------------------------------------------------------------------
 ! SUBROUTINE  : MakeCommonPath
 ! DESCRIPTION : Generates full file names for the common background or diurnal variation files and checks existence. An error is

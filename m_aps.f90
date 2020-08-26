@@ -61,9 +61,6 @@ TYPE TGridHeader
    INTEGER*4                                     :: nrrow                      ! number of grid rows
    real                                        :: grixl                      ! horizontal size of grid cell [km]
    real                                        :: griyl                      ! vertical size of grid cell [km]
-#ifdef InputIsChars
-   character *13                                 :: repform                    ! format of data in character file
-#endif /* InputIsChars */
 END TYPE TGridHeader
 
 !-------------------------------------------------------------------------------------------------------------------------------
@@ -175,6 +172,10 @@ INTEGER*4                                        :: nfield                     !
 INTEGER*4                                        :: nrcol                      ! number of grid columns
 INTEGER*4                                        :: nrrow                      ! number of grid rows
 INTEGER*4                                        :: ierr                       ! error status (ierr != 0 => error)
+#ifdef InputIsChars
+character*13                                     :: repform                    ! format of data in character file
+character*16                                     :: chkfmt                     ! check whether the format record is recognisable
+#endif /* InputIsChars */
 CHARACTER*1                                      :: teststring                 ! helpvariable
 real                                           :: r                          ! helpvariable
 real, DIMENSION(:,:), ALLOCATABLE              :: helpgrid
@@ -214,6 +215,10 @@ READ (88, IOSTAT=ierr) j
 READ (88, '(a)', IOSTAT=ierr) teststring
 #endif /* InputIsChars */
 IF (ierr.EQ.0) THEN
+#ifdef InputIsChars
+  READ (88, '(a)', IOSTAT=ierr) teststring
+  READ (88, '(a)', IOSTAT=ierr) teststring
+#endif /* InputIsChars */
   nfield = nfield + 1
   GOTO 1
 ENDIF
@@ -238,7 +243,7 @@ DO n = 1,nfield
 #else /* InputIsChars */
   READ (88, '(a)', IOSTAT=ierr) teststring
   READ (88, '(a)', IOSTAT=ierr) teststring
-  READ (88, '(a)', IOSTAT=ierr) teststring
+  Read (88,'(A,A)', IOSTAT = ierr) chkfmt, repform
 #endif /* InputIsChars */
 !  CALL read_aps_header(88, filename, gridtitle, floatgrid%gridheader, error)  
 !
@@ -248,7 +253,7 @@ DO n = 1,nfield
 #ifndef InputIsChars
     READ(88, IOSTAT=ierr) (floatgrid%value(j,i,n), j=1,nrcol)
 #else /* InputIsChars */
-    READ(88, fmt =  floatgrid%gridheader%repform, IOSTAT=ierr) (floatgrid%value(j,i,n), j=1,nrcol)
+    READ(88, fmt = repform, IOSTAT=ierr) (floatgrid%value(j,i,n), j=1,nrcol)
 #endif /* InputIsChars */
     IF (ierr.NE.0) THEN
       CALL SetError('Error reading grid data', error)
@@ -308,6 +313,10 @@ INTEGER*4                                        :: nfield                     !
 INTEGER*4                                        :: nrcol                      ! number of grid columns
 INTEGER*4                                        :: nrrow                      ! number of grid rows
 INTEGER*4                                        :: ierr                       ! error status (ierr != 0 => error)
+#ifdef InputIsChars
+character*13                                     :: repform                    ! format of data in character file
+character*16                                     :: chkfmt                    ! format of data in character file
+#endif /* InputIsChars */
 CHARACTER*1                                      :: teststring
 INTEGER*2, DIMENSION(:,:), ALLOCATABLE           :: helpgrid
 
@@ -342,6 +351,10 @@ READ (88, IOSTAT=ierr) j
 READ (88, '(a)', IOSTAT=ierr) teststring
 #endif /* InputIsChars */
 IF (ierr.EQ.0) THEN
+#ifdef InputIsChars
+  READ (88, '(a)', IOSTAT=ierr) teststring
+  READ (88, '(a)', IOSTAT=ierr) teststring
+#endif /* InputIsChars */
   nfield = nfield + 1
   GOTO 1
 ENDIF
@@ -366,7 +379,7 @@ DO n = 1,nfield
 #else /* InputIsChars */
 READ (88, '(a)', IOSTAT=ierr) teststring
 READ (88, '(a)', IOSTAT=ierr) teststring
-READ (88, '(a)', IOSTAT=ierr) teststring
+Read (88,'(A,A)', IOSTAT = ierr) chkfmt, repform
 #endif /* InputIsChars */
 !  CALL read_aps_header(88, filename, gridtitle, intgrid%gridheader, error)   
 !
@@ -376,7 +389,7 @@ READ (88, '(a)', IOSTAT=ierr) teststring
 #ifndef InputIsChars
     READ(88, IOSTAT=ierr) (intgrid%value(j,i,n), j=1,nrcol)
 #else /* InputIsChars */
-    READ(88, fmt =  intgrid%gridheader%repform, IOSTAT=ierr) (intgrid%value(j,i,n), j=1,nrcol)
+    READ(88, fmt = repform, IOSTAT=ierr) (intgrid%value(j,i,n), j=1,nrcol)
 #endif /* InputIsChars */
     IF (ierr.NE.0) THEN
       CALL SetError('Error reading grid data', error)
@@ -472,6 +485,7 @@ TYPE (TError), INTENT(OUT)                       :: error                      !
 ! LOCAL VARIABLES
 #ifdef InputIsChars
 CHARACTER*60                                     :: headerformat               ! format of the header
+character*13                                     :: repform                    ! format of data in character file
 CHARACTER*16                                     :: chkfmt                     ! check whether the format record is recognisable
 #endif /* InputIsChars */
 CHARACTER*22                                     :: comment                    ! comment in grid header
@@ -532,10 +546,10 @@ IF (ierr /= 0) THEN
 ENDIF
 
 #ifdef InputIsChars
-Read( fileunit,'(A,A)', IOSTAT = ierr) chkfmt,  gridheader%repform
+Read( fileunit,'(A,A)', IOSTAT = ierr) chkfmt,  repform
 IF (ierr /= 0 .or. chkfmt /= "  dataformat is ") THEN
   IF (ierr == 0) THEN
-    CALL SetError('Error reading aps grid file data format' // chkfmt // gridheader%repform, error)
+    CALL SetError('Error reading aps grid file data format' // chkfmt // repform, error)
   ELSE IF (ierr > 0) THEN
     CALL SetError('Error reading aps grid file data format', error)
   ELSE
