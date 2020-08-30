@@ -65,8 +65,8 @@ real,    INTENT(INOUT)                         :: emis(6,NLANDMAX)
 ! SUBROUTINE ARGUMENTS - OUTPUT
 INTEGER*4, INTENT(OUT)                           :: nsbuf                       
 INTEGER*4, INTENT(OUT)                           :: bnr(LSBUF)                  
-INTEGER*4, INTENT(OUT)                           :: bx(LSBUF)                   
-INTEGER*4, INTENT(OUT)                           :: by(LSBUF)                   
+real, INTENT(OUT)                           :: bx(LSBUF)                   
+real, INTENT(OUT)                           :: by(LSBUF)                   
 real,    INTENT(OUT)                           :: bdiam(LSBUF)                
 real,    INTENT(OUT)                           :: bsterkte(LSBUF)             
 real,    INTENT(OUT)                           :: bwarmte(LSBUF)              
@@ -240,8 +240,8 @@ DO WHILE (nsbuf /= LSBUF)
 !
     IF (IGEO /= 1) THEN
       bnr(nsbuf) = mm
-      bx(nsbuf)  = NINT(x)
-      by(nsbuf)  = NINT(y)
+      bx(nsbuf)  = x
+      by(nsbuf)  = y
     ELSE  
        write(*,*) 'IGEO in ops_bron_rek = ',IGEO  
        stop 

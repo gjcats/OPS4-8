@@ -79,8 +79,8 @@ real,    PARAMETER                             :: NL_YLOWER   = 306838.813   !
 INTEGER*4                                        :: i                          ! grid index                           
 INTEGER*4                                        :: m                          ! column index                           
 INTEGER*4                                        :: n                          ! row index
-INTEGER*4                                        :: ix                         ! x coordinate of receptor point (read from file)                          
-INTEGER*4                                        :: iy                         ! y coordinate of receptor point (read from file) 
+real                                        :: ix                         ! x coordinate of receptor point (read from file)                          
+real                                        :: iy                         ! y coordinate of receptor point (read from file) 
 INTEGER*4                                        :: p                          ! receptor point number (dummy)
 INTEGER*4                                        :: ierr                       ! error status
 real                                           :: lower                      

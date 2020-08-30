@@ -119,8 +119,8 @@ real,    INTENT(IN)                            :: nh3bg_rcp                  ! N
 real,    INTENT(IN)                            :: rhno3_rcp                  ! ratio [HNO3]/[NO3]_total at receptor points, [NO3]_total = [HNO3] + [NO3_aerosol] 
 real,    INTENT(IN)                            :: bqrv                       ! source strength of space heating source (rv << "ruimteverwarming" = space heating) [g/s]
 real,    INTENT(IN)                            :: bqtr                       ! source strength of traffic source [g/s]
-INTEGER*4, INTENT(IN)                            :: bx                         ! x-coordinate of source 
-INTEGER*4, INTENT(IN)                            :: by                         ! y-coordinate of source 
+real, INTENT(IN)                            :: bx                         ! x-coordinate of source 
+real, INTENT(IN)                            :: by                         ! y-coordinate of source 
 real,    INTENT(IN)                            :: bdiam                      ! source diameter [m]; if bdiam < 0 -> circular source, bdiam > 0 -> square sourc 
 real,    INTENT(IN)                            :: bsterkte                   ! source strength [g/s] 
 real,    INTENT(IN)                            :: bwarmte                    ! heat content of source [MW] 
@@ -739,8 +739,8 @@ CHARACTER*512                                    :: ROUTINENAAM                !
 PARAMETER      (ROUTINENAAM = 'wind_rek')
 
 ! SUBROUTINE ARGUMENTS - INPUT
-INTEGER*4, INTENT(IN)                            :: bx                         ! 
-INTEGER*4, INTENT(IN)                            :: by                         ! 
+real, INTENT(IN)                            :: bx                         ! 
+real, INTENT(IN)                            :: by                         ! 
 real,    INTENT(IN)                            :: bdiam                      ! 
 real,    INTENT(IN)                            :: bsterkte                   ! 
 real,    INTENT(IN)                            :: bwarmte                    ! 

@@ -9,7 +9,6 @@ real r(4)
 save r
 data r /0,0,0,0/
 integer k
-integer i
 if ( r(k) > 0 ) then
    r1mach = r(k)
    return

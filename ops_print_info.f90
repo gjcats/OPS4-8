@@ -59,8 +59,8 @@ real,    INTENT(IN)                            :: z0_rcp                     ! r
 CHARACTER*(*), INTENT(IN)                        :: namco                      ! substance name
 INTEGER*4, INTENT(IN)                            :: nbron                      ! number of emission sources (after selection)
 INTEGER*4, INTENT(IN)                            :: bnr(LSBUF)                 ! buffer with source numbers
-INTEGER*4, INTENT(IN)                            :: bx(LSBUF)                  ! buffer with x-coordinates
-INTEGER*4, INTENT(IN)                            :: by(LSBUF)                  ! buffer with y-coordinates
+real, INTENT(IN)                            :: bx(LSBUF)                  ! buffer with x-coordinates
+real, INTENT(IN)                            :: by(LSBUF)                  ! buffer with y-coordinates
 real,    INTENT(IN)                            :: bsterkte(LSBUF)            ! buffer with source strengths (industrial)
 real,    INTENT(IN)                            :: bqrv(LSBUF)                ! buffer with source strengths (space heating)
 real,    INTENT(IN)                            :: bqtr(LSBUF)                ! buffer with source strengths (traffic)
@@ -235,7 +235,7 @@ WRITE (fu_prt, '(" Printer output file (this file)",T33,": ",a)') prnnam(:LEN_TR
 WRITE (fu_prt, '(a)') char(12)
 CALL ops_print_kop(project, namco)
 
-50 FORMAT (i4, 2i8, e10.3, f7.3, f6.1, f7.0, f6.1, 3i4, i5, 2x, a)
+50 FORMAT (i4, 2f10.1, e10.3, f7.3, f6.1, f7.0, f6.1, 3i4, i5, 2x, a)
 
 IF (nbron .LE. NBRMAX) THEN
    WRITE (fu_prt, '(//,'' Emission source data:'')')

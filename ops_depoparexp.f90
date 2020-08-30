@@ -143,8 +143,8 @@ real,    INTENT(IN)                            :: ra50tra                    !
 real,    INTENT(IN)                            :: xm
 real,    INTENT(IN)                            :: ym
 real,    INTENT(IN)                            :: zm                         ! z-coordinate of receptor points (RDM)
-INTEGER*4, INTENT(IN)                            :: bx 
-INTEGER*4, INTENT(IN)                            :: by
+real,    INTENT(IN)                            :: bx 
+real,    INTENT(IN)                            :: by
 
 ! SUBROUTINE ARGUMENTS - I/O
 real,    INTENT(INOUT)                         :: rctra_0                    !
@@ -561,7 +561,7 @@ IF ((cq1 .LT. (0. - EPS_DELTA)) .OR. (cq1 .GT. (1. + EPS_DELTA)) .OR. (cq2 .LT. 
    WRITE(fu_log,'("WARNING: OPS has detected a value outside limits", " in routine ",A)') ROUTINENAAM(:LEN_TRIM(ROUTINENAAM))
    WRITE (fu_log, '(''  stab, disx, xl, sigz, sigzr, dxeff, ueff, uxr, cq1, cq2, cch, c:'', i4, 5f10.0, 6f10.4)') istab,        &
   &  disx, xl, sigz, sigzr, dxeff, ueff, uxr, cq1, cq2, cch, c/cq1
-   WRITE (fu_log, '(''  vchem, vnatpri, utr, a, x_rcp, y_rcp, bronx, brony:'', 6f10.0, 2i10)')                                  &
+   WRITE (fu_log, '(''  vchem, vnatpri, utr, a, x_rcp, y_rcp, bronx, brony:'', 6f10.0, 2f10.1)')                                  &
   &  vchem, vnatpri, utr, a, xm, ym, bx, by
  ENDIF
 !
