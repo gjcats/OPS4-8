@@ -44,7 +44,9 @@ ifeq ($(MAKECONF),GNU_Linux)
    FC       = gfortran
    CPPFLAGS = -DUNIX -DGNU -DInputIsChars
    FFLAGSb  = $(OPT) -ffree-line-length-0 -finit-local-zero -cpp
-#  FFLAGSb += -fdefault-real-8
+   ifeq ($(MAKECMDGOALS),OPS8)
+      FFLAGSb += -fdefault-real-8
+   endif
    FFLAGS   = $(FFLAGSb)
 
 # optimisation problems
@@ -63,6 +65,12 @@ else
       FFLAGS = -nowarn -fpp -assume byterecl -O2 -extend_source
    endif
 endif
+#_______________________________________________________________________________
+
+# double precision, to be installed immediately
+OPS8: OPS.exe
+	mv $< $@
+	cp $@ $(MYPATH)/
 
 #_______________________________________________________________________________
 

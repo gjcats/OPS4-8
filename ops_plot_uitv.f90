@@ -112,20 +112,20 @@ IF (spgrid .EQ. 2) THEN
 !
 !     NOx
 !
-      WRITE (fu_plt, '(a4,8x,a8,a8,6a12)', IOSTAT = ierr) 'name', 'x-coord', 'y-coord', 'conc.', 'dry dep.', 'wet dep.',       &
+      WRITE (fu_plt, '(a4,8x,a10,a10,6a12)', IOSTAT = ierr) 'name', 'x-coord', 'y-coord', 'conc.', 'dry dep.', 'wet dep.',       &
           &  'tot.dep.', 'conc.', 'conc.'
       IF (ierr .GT. 0) GOTO 4200
 
       ls = LEN_TRIM(namse3)
-      WRITE (fu_plt, '(28x,6a12)', IOSTAT = ierr) namco(:LEN_TRIM(namco)), namse3(:ls), namse3(:ls), namse3(:ls),              &
+      WRITE (fu_plt, '(32x,6a12)', IOSTAT = ierr) namco(:LEN_TRIM(namco)), namse3(:ls), namse3(:ls), namse3(:ls),              &
             &  namsec(:LEN_TRIM(namsec)), namseccor(:LEN_TRIM(namseccor))
       IF (ierr .GT. 0) GOTO 4200
 
-      WRITE (fu_plt, '(12x,a8,a8,6a12)', IOSTAT = ierr) 'm', 'm', coneh, depeh, depeh, depeh, 'ug/m3', 'ug/m3'
+      WRITE (fu_plt, '(12x,a10,a10,6a12)', IOSTAT = ierr) 'm', 'm', coneh, depeh, depeh, depeh, 'ug/m3', 'ug/m3'
       IF (ierr .GT. 0) GOTO 4200
 
       DO j = 1, nrrcp
-        WRITE (fu_plt, '(a12,2i8,6e12.4)', IOSTAT = ierr) namrcp(j), NINT(xm(j)), NINT(ym(j)), cpri(j), drydep(j),             &
+        WRITE (fu_plt, '(a12,2F10.2,6e12.4)', IOSTAT = ierr) namrcp(j), xm(j), ym(j), cpri(j), drydep(j),             &
                   &  wetdep(j), drydep(j) + wetdep(j), csec(j), cseccor(j)
         IF (ierr .GT. 0) GOTO 4200
       ENDDO
@@ -134,20 +134,20 @@ IF (spgrid .EQ. 2) THEN
 !
 !     other than NOx
 !
-      WRITE (fu_plt, '(a4,8x,a8,a8,5a12)', IOSTAT = ierr) 'name', 'x-coord', 'y-coord', 'conc.', 'dry dep.', 'wet dep.',       &
+      WRITE (fu_plt, '(a4,8x,a10,a10,5a12)', IOSTAT = ierr) 'name', 'x-coord', 'y-coord', 'conc.', 'dry dep.', 'wet dep.',       &
           &  'tot.dep.', 'conc.'
       IF (ierr .GT. 0) GOTO 4200
 
       ls = LEN_TRIM(namse3)
-      WRITE (fu_plt, '(28x,5a12)', IOSTAT = ierr) namco(:LEN_TRIM(namco)), namse3(:ls), namse3(:ls), namse3(:ls),              &
+      WRITE (fu_plt, '(32x,5a12)', IOSTAT = ierr) namco(:LEN_TRIM(namco)), namse3(:ls), namse3(:ls), namse3(:ls),              &
             &  namsec(:LEN_TRIM(namsec))
       IF (ierr .GT. 0) GOTO 4200
 
-      WRITE (fu_plt, '(12x,a8,a8,5a12)', IOSTAT = ierr) 'm', 'm', coneh, depeh, depeh, depeh, 'ug/m3'
+      WRITE (fu_plt, '(12x,a10,a10,5a12)', IOSTAT = ierr) 'm', 'm', coneh, depeh, depeh, depeh, 'ug/m3'
       IF (ierr .GT. 0) GOTO 4200
 
       DO j = 1, nrrcp
-        WRITE (fu_plt, '(a12,2i8,5e12.4)', IOSTAT = ierr) namrcp(j), NINT(xm(j)), NINT(ym(j)), cpri(j), drydep(j),             &
+        WRITE (fu_plt, '(a12,2F10.2,5e12.4)', IOSTAT = ierr) namrcp(j), xm(j), ym(j), cpri(j), drydep(j),             &
                   &  wetdep(j), drydep(j) + wetdep(j), csec(j)
         IF (ierr .GT. 0) GOTO 4200
       ENDDO
