@@ -545,6 +545,7 @@ ELSE
    a = AMIN1(sigz, a)/1.5                                                      ! 960115
    sigz = SQRT((sigz*sigz) + (a*a))
 ENDIF
+sigz = sigz + szopp	! initial sigma_z
 
 ! Point source, so extra virtual distance for area source = 0
 virty = 0.
